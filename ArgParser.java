@@ -1,3 +1,5 @@
+// class for parsing arguments from command-line
+
 public class ArgParser {
 
     private String[] args = null;
