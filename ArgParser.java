@@ -83,6 +83,7 @@ public class ArgParser {
 
     @Override
     public String toString() {
+    // returns String representation of command
 
         StringBuffer sb = new StringBuffer();
 
