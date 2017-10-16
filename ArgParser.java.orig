@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 package accounting;
+=======
 // class for parsing arguments from command-line
 
+>>>>>>> 955b29de29ba49df1bf939ac7d8b7f89389fa17a
 public class ArgParser {
 
     private String[] args = null;
