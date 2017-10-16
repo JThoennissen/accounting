@@ -4,5 +4,5 @@
 
 #Dateien, die durch ein Muster (*, &) identifiziert werden
 *.class
-
+*.tar.bz2
 #Dateien, die entgegen dem Muster eingeschlossen werden (durch ! gekennzeichnet)
