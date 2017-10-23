@@ -18,11 +18,20 @@ public class Accounting {
 
 	public static void main(String args[]) throws FileNotFoundException{
 	
-		// .csv-Dateinamen und Zinssatz einlesen
-		Scanner sc = new Scanner(new File(args[0]));
-		String datei = sc.nextLine();
-		double zinssatz = Double.parseDouble(sc.nextLine());
-		sc.close();
+        String datei;
+        double zinssatz;
+        
+        // .csv-Dateinamen und Zinssatz einlesen
+        if(args.length != 0) {
+            ArgParser parser = new ArgParser(args);
+            datei = parser.getInputFilename();
+            zinssatz = Double.parseDouble(parser.getNonOptions().replace(",","."));
+        } else {
+            Scanner sc = new Scanner(System.in);
+            datei = sc.nextLine();
+            zinssatz = Double.parseDouble(sc.nextLine());
+            sc.close();
+        }
 		
 		// Zinsen setzen und Liste erstellen
 		Depositor.setzeZinsen(zinssatz);
@@ -45,7 +54,7 @@ public class Accounting {
 						// Nummer, Nachname, Vorname, Startguthaben
 						mitglied = new Depositor(tmp[0], tmp[1], tmp[2], (long) (format.parse(tmp[3]).doubleValue()*100), liste);
 					} catch (ParseException e) {
-						System.out.println(tmp[3] + "could not be parsed properly.");
+						System.out.println(tmp[3] + " could not be parsed properly.");
 					}
 					// Einzahlungen
 					for(int i = 4; i < tmp.length-1; i += 2) {
@@ -53,7 +62,7 @@ public class Accounting {
 						try {
 							betrag = format.parse(tmp[i+1]).doubleValue();
 						} catch (ParseException e) {
-							System.out.println(tmp[3] + "could not be parsed properly.");
+							System.out.println(tmp[3] + " could not be parsed properly.");
 						}
 						mitglied.einzahlen(Integer.parseInt(tmp[i]), (long) (betrag*100));
 					}

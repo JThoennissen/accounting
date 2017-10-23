@@ -1,4 +1,4 @@
-package accounting;
+package application.accounting;
 // class for parsing arguments from command-line
 
 public class ArgParser {
