@@ -5,4 +5,5 @@
 #Dateien, die durch ein Muster (*, &) identifiziert werden
 *.class
 *.tar.bz2
+.ant-targets-build.xml
 #Dateien, die entgegen dem Muster eingeschlossen werden (durch ! gekennzeichnet)

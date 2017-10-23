@@ -16,10 +16,10 @@ public class Accounting {
 		}
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws FileNotFoundException{
 	
 		// .csv-Dateinamen und Zinssatz einlesen
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(new File(args[0]));
 		String datei = sc.nextLine();
 		double zinssatz = Double.parseDouble(sc.nextLine());
 		sc.close();

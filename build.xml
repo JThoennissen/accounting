@@ -20,5 +20,12 @@
     <delete dir="build"/>
     <delete dir="dist"/>
   </target>
+  
+  <target name="execute-input" depends="compile">
+      <java classpath="build/classes"
+          classname="application.accounting.Accounting">
+          <arg file="./src/data/test.in"/>
+      </java>
+  </target>
 
 </project>
