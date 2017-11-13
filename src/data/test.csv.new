@@ -1,4 +1,14 @@
-# Die Kontost??nde der Mitglieder des Sparvereins "Goldenes Sparschwein"
+Nov 13, 2017 4:32:06 PM application.accounting.Accounting main
+INFORMATION: lese von Datei: ./src/data/test.csv
+Nov 13, 2017 4:32:06 PM application.accounting.Accounting main
+INFORMATION: gelesene Zeile: # Die Kontostände der Mitglieder des Sparvereins "Goldenes Sparschwein"
+Nov 13, 2017 4:32:06 PM application.accounting.Accounting main
+INFORMATION: gelesene Zeile: 
+Nov 13, 2017 4:32:06 PM application.accounting.Accounting main
+INFORMATION: gelesene Zeile: 013579;Mustermann;Karl Egon;312,45;5;1,57;201;30,5;360;9,5
+Nov 13, 2017 4:32:06 PM application.accounting.Accounting main
+INFORMATION: gelesene Zeile: 023678;Musterfrau;Christa;278,77
+# Die Kontostände der Mitglieder des Sparvereins "Goldenes Sparschwein"
 
-013579;Mustermann;Karl Egon;356.48
-023678;Musterfrau;Christa;280.86
+013579;Mustermann;Karl Egon;354,18
+023678;Musterfrau;Christa;278,91
