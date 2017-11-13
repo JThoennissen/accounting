@@ -47,4 +47,24 @@
                -l ./src/data/test.csv.log 0,75"/>
       </java>
   </target>
+  
+  <target name="test-set-language-links">
+          <condition property="isNotALangDir">
+              <not>
+                  <available file="./dist/data"
+                             type="dir"/>
+                 </not>
+            </condition>
+  </target>
+    
+  <target name="create-language-links"
+          depends="test-set-language-links" if="isNotALangDir">
+      <exec executable="ln"
+            error="/dev/null" os="Linux">
+          <arg line="-sn" />
+          <arg file=".src/data/lang" />
+          <arg file="./dist/data" />
+      </exec>
+  </target>
+          
 </project>
