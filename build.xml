@@ -4,7 +4,7 @@
 
   <target name="init">
     <mkdir dir="build/classes"/>
-    <mkdir dir="dist"/>
+    <mkdir dir="dist/data"/>
   </target>
   
   <path id = "project.class.path">
@@ -13,7 +13,7 @@
       <pathelement path="${java.class.path}/"/>
   </path>
 
-  <target name="compile" depends="init">
+  <target name="compile" depends="create-language-links">
     <javac includeAntRuntime="false" srcdir="src" destdir="build/classes"
            debug="true" debuglevel="lines,vars,source">
         <classpath refid="project.class.path"/>
@@ -65,10 +65,10 @@
       </java>
   </target>
   
-  <target name="test-set-language-links">
+  <target name="test-set-language-links" depends="init">
           <condition property="isNotALangDir">
               <not>
-                  <available file="./dist/data"
+                  <available file="./dist/data/lang"
                              type="dir"/>
                  </not>
             </condition>
@@ -80,7 +80,7 @@
             error="/dev/null" os="Linux">
           <arg line="-sn" />
           <arg file="src/data/lang" />
-          <arg file="./dist/data" />
+          <arg file="./dist/data/lang" />
       </exec>
   </target>
           

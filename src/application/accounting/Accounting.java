@@ -10,6 +10,9 @@ import java.util.logging.Level;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 // Klasse fuer die Buchhaltung
 public class Accounting {
@@ -62,7 +65,16 @@ public class Accounting {
             }
             
             String baseName = "Accounting";
-            ResourceBundle rb = ResourceBundle.getBundle(baseName);
+            File file = new File("./dist/data/lang/");
+            ResourceBundle rb = null;
+            try {
+                URL[] urls = {file.toURI().toURL()};
+                ClassLoader loader = new URLClassLoader(urls);
+                rb = ResourceBundle.getBundle(baseName, Locale.getDefault(), loader);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            
             String readinput_msg = rb.getString("readinput_msg");
             logger.info(readinput_msg + ": " + datei);
             
