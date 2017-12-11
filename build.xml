@@ -2,7 +2,7 @@
 
 <project name="accounting" default="archive">
 
-  <target name="init">
+  <target name="init" description="initialises the directory structure">
     <mkdir dir="build/classes"/>
     <mkdir dir="dist/data"/>
   </target>
@@ -13,7 +13,7 @@
       <pathelement path="${java.class.path}/"/>
   </path>
 
-  <target name="compile" depends="create-language-links">
+  <target name="compile" depends="create-language-links" description="compiles the project">
     <javac includeAntRuntime="false" srcdir="src" destdir="build/classes"
            debug="true" debuglevel="lines,vars,source">
         <classpath refid="project.class.path"/>
@@ -21,18 +21,18 @@
   </target>
 
   <target name="archive" depends="compile"
-          description="creates an executable .jar-archive">
+          description="creates a single archive, based on all .class-files">
     <jar destfile="dist/accounting.jar"
         basedir="build/classes"/>
   </target>
 
-  <target name="clean" depends="delete-language-links">
+  <target name="clean" depends="delete-language-links" description="deletes the ./build and ./dist directories">
     <delete dir="build"/>
     <delete dir="dist"/>
   </target>
   
   <target name="execute-jar" depends="archive"
-          description="executes the application from .jar-archive">
+          description="executes the application, based on the single archive">
       <java classpathref="project.class.path"
             classname="application.accounting.Accounting">
           <arg line="--input-file ./src/data/test.csv
@@ -141,13 +141,10 @@ done
   </target>
 
   <target name="help" description="shows purpose of the application">
+      <java classname="org.apache.tools.ant.Main">
+          <arg value="-projecthelp" />
+      </java>
       <echo> 
-          Ziele dieses Programms:
-          - Verwaltung der Daten eines Sparvereins
-          - Einlesen der Mitgliederdaten mit den Einzahlungen des vorigen Jahres
-          - Berechnung der Kontostaende zu Beginn des Folgejahres gemaess aktuellem Zinssatz
-          - Erzeugen einer neuen Datei mit den neuen Mitgliederdaten
-          
           Das Projekt &quot;accounting&quot; zeigt verschiedene Schritte und
           Tätigkeiten, die bei der Durchführung eines Projektes
           durchzuführen sind.
