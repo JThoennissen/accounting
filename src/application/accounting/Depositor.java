@@ -43,7 +43,9 @@ public class Depositor {
 	// String-Darstellung eines Sparers
 	public String toString() {
 		double guthaben = this.berechneGuthaben(Depositor.zinssatz);
-		String s = String.format("%s;%s;%s;%.2f", this.nummer, this.nachname, this.vorname, guthaben);
+		String gut = guthaben + "";
+		gut = gut.replace('.',',');
+		String s = String.format("%s;%s;%s;%s", this.nummer, this.nachname, this.vorname, gut);
 		return s;
 	}
 }

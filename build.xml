@@ -25,7 +25,7 @@
         basedir="build/classes"/>
   </target>
 
-  <target name="clean" depends="init">
+  <target name="clean" depends="delete-language-links">
     <delete dir="build"/>
     <delete dir="dist"/>
   </target>
@@ -74,12 +74,23 @@
             </condition>
   </target>
     
-  <target name="create-language-links"
-          depends="test-set-language-links" if="isNotALangDir">
+  <target name="create-language-links" depends="test-set-language-links" if="isNotALangDir">
       <exec executable="ln"
             error="/dev/null" os="Linux">
           <arg line="-sn" />
           <arg file="src/data/lang" />
+          <arg file="./dist/data/lang" />
+      </exec>
+  </target>
+  
+  <target name="test-remove-language-links">
+      <condition property="isADir">
+          <available file="./dist/data/lang" type="dir" />
+      </condition>
+  </target>
+  
+  <target name="delete-language-links" depends="test-remove-language-links" if="isADir">
+      <exec executable="rm" error="/dev/null" os="Linux">
           <arg file="./dist/data/lang" />
       </exec>
   </target>
@@ -106,5 +117,24 @@ com.xyz.foo.level = SEVERE
             <jvmarg value="-Djava.util.logging.config.file=./build/classes/accounting_logging.properties"/>
       </java>
    </target>
+   
+<target name="execute-test-script" depends="archive">
+    <echo file="test_error.sh" append="false">
+#! /bin/sh
+
+for elem in `ls ./src/data/test_err*.in`
+do
+    java -cp &quot;./dist/data/lang:./dist/accounting.jar:${CLASSPATH}&quot; application.accounting.Accounting -i $elem -o &quot;./src/data/`basename $elem .in`.out&quot; 0,75
+done
+</echo>
+<exec executable="/bin/bash">
+    <arg value="test_error.sh"/>
+</exec>
+<exec executable="rm" error="/dev/null" os="Linux">
+          <arg file="test_error.sh" />
+      </exec>
+  </target>
+
+
           
 </project>

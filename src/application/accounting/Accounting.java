@@ -40,7 +40,6 @@ public class Accounting {
             logger.addHandler(fh);
         } catch (IOException e) {
             logger.severe("Datei kann nicht geschrieben werden.");
-            e.printStackTrace();
         }
         // Logger in Datei oder Konsole
         logger.setLevel(Level.ALL);
@@ -98,7 +97,14 @@ public class Accounting {
                         Depositor mitglied = null;					
                         try {
                             // Nummer, Nachname, Vorname, Startguthaben
-                            mitglied = new Depositor(tmp[0], tmp[1], tmp[2], (long) (format.parse(tmp[3]).doubleValue()*100), liste);
+                            long start = (long) (format.parse(tmp[3]).doubleValue()*100);
+                            if (start < 0) {
+                                logger.warning("Der Kontostand ist negativ!");
+                            }
+                            mitglied = new Depositor(tmp[0], tmp[1], tmp[2], start, liste);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            logger.warning("Fehlerhafte Eingabe!");
+                            System.exit(1);
                         } catch (ParseException e) {
                             logger.warning(tmp[3] + " konnte nicht geparsed werden.");
                         }
@@ -107,6 +113,9 @@ public class Accounting {
                             double betrag = 0.0;
                             try {
                                 betrag = format.parse(tmp[i+1]).doubleValue();
+                                if (betrag < 0) {
+                                    logger.warning("Ein Betrag ist negativ!");
+                                }
                             } catch (ParseException e) {
                                 logger.warning(tmp[3] + " konnte nicht geparsed werden.");
                             }
