@@ -20,7 +20,8 @@
         </javac>
   </target>
 
-  <target name="archive" depends="compile">
+  <target name="archive" depends="compile"
+          description="creates an executable .jar-archive">
     <jar destfile="dist/accounting.jar"
         basedir="build/classes"/>
   </target>
@@ -30,7 +31,8 @@
     <delete dir="dist"/>
   </target>
   
-  <target name="execute-jar" depends="archive">
+  <target name="execute-jar" depends="archive"
+          description="executes the application from .jar-archive">
       <java classpathref="project.class.path"
             classname="application.accounting.Accounting">
           <arg line="--input-file ./src/data/test.csv
@@ -48,7 +50,8 @@
       </java>
   </target>
   
-  <target name="execute-input" depends="compile">
+  <target name="execute-input" depends="compile"
+          description="executes the application with parameters fro test.in">
       <java classpathref="project.class.path"
           classname="application.accounting.Accounting"
           input="./src/data/test.in"
@@ -56,7 +59,8 @@
       </java>
   </target>
   
-  <target name="execute-params" depends="compile">
+  <target name="execute-params" depends="compile"
+          description="executes the application with default parameters">
       <java classpathref="project.class.path"
             classname="application.accounting.Accounting">
           <arg line="--input-file ./src/data/test.csv
@@ -118,7 +122,8 @@ com.xyz.foo.level = SEVERE
       </java>
    </target>
    
-<target name="execute-test-script" depends="archive">
+<target name="execute-test-script" depends="archive"
+        description="executes error cases">
     <echo file="test_error.sh" append="false">
 #! /bin/sh
 
@@ -135,6 +140,20 @@ done
       </exec>
   </target>
 
-
+  <target name="help" description="shows purpose of the application">
+      <echo> 
+          Ziele dieses Programms:
+          - Verwaltung der Daten eines Sparvereins
+          - Einlesen der Mitgliederdaten mit den Einzahlungen des vorigen Jahres
+          - Berechnung der Kontostaende zu Beginn des Folgejahres gemaess aktuellem Zinssatz
+          - Erzeugen einer neuen Datei mit den neuen Mitgliederdaten
+          
+          Das Projekt &quot;accounting&quot; zeigt verschiedene Schritte und
+          Tätigkeiten, die bei der Durchführung eines Projektes
+          durchzuführen sind.
+      </echo>
+  </target>
+  
+  
           
 </project>
