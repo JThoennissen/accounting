@@ -6,7 +6,7 @@ import java.text.*;
 // Klasse fuer die Buchhaltung
 public class Accounting {
 
-    public static String applicationVersion = "Id: <FILE>, version <COMMITHASHABBREVIATED> of <COMMITTERDATEISO8601> by <AUTHORNAME>"
+    public static String applicationVersion = "Id: Accounting.java, version 32e1c6b of 2017-12-11 16:02:51 +0100 by JThoennissen"
 
 	// Liste der Sparer
 	private static ArrayList<Depositor> mitglieder;	
