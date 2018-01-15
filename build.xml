@@ -23,27 +23,29 @@
   </target>
   
   <target name="execute-input" depends="compile">
-      <java classpath="build/classes"
+      <java classpath="build/classes:/home/se101124/lib/java/java-getopt/java-getopt-1.0.14.jar"
           classname="application.accounting.Accounting"
           input="./src/data/test.in">
       </java>
   </target>
   
   <target name="execute-argparser" depends="compile">
-      <java classpath="build/classes/"
+      <java classpath="build/classes/:/home/se101124/lib/java/java-getopt/java-getopt-1.0.14.jar"
             classname="application.accounting.ArgParser">
           <arg line="--input-file ./src/data/test.csv
                -o ./src/data/test.csv.new
-               -l ./src/data/test.csv.log 0,75"/>
+               -l ./src/data/test.csv.log 
+               -r 0,75"/>
       </java>
   </target>
   
   <target name="execute-params" depends="compile">
-      <java classpath="build/classes/"
+      <java classpath="build/classes/:/home/se101124/lib/java/java-getopt/java-getopt-1.0.14.jar"
             classname="application.accounting.Accounting">
           <arg line="--input-file ./src/data/test.csv
                -o ./src/data/test.csv.new
-               -l ./src/data/test.csv.log 0,75"/>
+               -l ./src/data/test.csv.log 
+               -r 0,75"/>
       </java>
   </target>
 

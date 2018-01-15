@@ -10,6 +10,7 @@ public class ArgParser {
     private String outputFilename = null;
     private String logFilename = null;
     private String nonOptions = null;
+    private String interestRate = null;
 
     public ArgParser(String[] args) {
 
@@ -21,62 +22,85 @@ public class ArgParser {
 
     private void parseArgs() {
     // parses arguments of given command and checks if used valid
-        StringBuffer sb = null;
-                               
-        for ( int i = 0; i < args.length; i++ ) {
-
-            if ( args[i].equals("-h") || args[i].equals("--help") ) {
+        int c;
+        String arg;
+        LongOpt[] longopts = new LongOpt[6];
+  
+        StringBuffer sb = new StringBuffer();
+        longopts[0] = new LongOpt("input-file", LongOpt.REQUIRED_ARGUMENT, sb, 'i');
+        longopts[1] = new LongOpt("output-file", LongOpt.REQUIRED_ARGUMENT, sb, 'o'); 
+        longopts[2] = new LongOpt("log-file", LongOpt.OPTIONAL_ARGUMENT, null, 'l');
+        longopts[3] = new LongOpt("rate-of-interest", LongOpt.REQUIRED_ARGUMENT, sb, 'r');
+        longopts[4] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, 'h');
+        longopts[5] = new LongOpt("version", LongOpt.NO_ARGUMENT, null, 'v');
+ 
+        Getopt g = new Getopt("testprog", args, "i:o:r:l:hv", longopts);
+        
+        while ((c = g.getopt()) != -1) {
+            switch (c) {
+            case 0:
+            case 'i':
+                arg = g.getOptarg();
+                if (arg != null) {
+                    inputFilename = arg;
+                } // end of if ( i + 1 < args.length )
+                else {
+                    throw new IllegalArgumentException("missing filename");
+                } // end of if ( i + 1 < args.length ) else
+                break;
+            case 1:
+            case 'o':
+                arg = g.getOptarg();
+                if (arg != null) {
+                    outputFilename = arg;
+                } // end of if ( i + 1 < args.length )
+                else {
+                    throw new IllegalArgumentException("missing filename");
+                } // end of if ( i + 1 < args.length ) else
+                break;
+            case 2:
+            case 'l':
+                arg = g.getOptarg();
+                if (arg != null) {
+                    logFilename = arg;
+                } // end of if ( i + 1 < args.length )
+                else {
+                    throw new IllegalArgumentException("missing filename");
+                } // end of if ( i + 1 < args.length ) else
+                break;
+            case 3:
+            case 'r':
+                arg = g.getOptarg();
+                if (arg != null) {
+                    interestRate = arg;
+                } // end of if ( i + 1 < args.length )
+                else {
+                    throw new IllegalArgumentException("missing interest rate");
+                } // end of if ( i + 1 < args.length ) else
+                break;
+            case 4:
+            case 'h':
                 System.out.println("User asks for help");
                 showHelp = true;
-            } // end of if ( args[i].equals("-h") ... ) )
-            else if ( args[i].equals("-v") || args[i].equals("--version") ) {
+                break;
+            case 5:
+            case 'v':
                 System.out.println("User asks for the program's version");
                 showVersion = true;
-            } // end of else if ( args[i].equals("-v") ... )
-            else if ( args[i].equals("-i") || args[i].equals("--input-file") ) {
-
-                if ( i + 1 < args.length ) {
-                    inputFilename = args[++i];
-                } // end of if ( i + 1 < args.length )
-                else {
-                    throw new IllegalArgumentException("missing filename");
-                } // end of if ( i + 1 < args.length ) else
-
-            } // end of else if ( args[i].equals("-i") ... )
-            else if ( args[i].equals("-o") || args[i].equals("--output-file") ) {
-
-                if ( i + 1 < args.length ) {
-                    outputFilename = args[++i];
-                } // end of if ( i + 1 < args.length )
-                else {
-                    throw new IllegalArgumentException("missing filename");
-                } // end of if ( i + 1 < args.length ) else
-
-            } // end of else if ( args[i].equals("-o") ... )
-            else if ( args[i].equals("-l") || args[i].equals("--log-file") ) {
-
-                if ( i + 1 < args.length ) {
-                    logFilename = args[++i];
-                } // end of if ( i + 1 < args.length )
-                else {
-                    throw new IllegalArgumentException("missing filename");
-                } // end of if ( i + 1 < args.length ) else
-
-            } // end of else if ( args[i].equals("-l") ... )
-            else {
-                
+                break;
+            default:
+                arg = g.getOptarg();
                 if ( sb == null ) {
                     sb = new StringBuffer();
-                    sb.append(args[i]);
+                    sb.append(arg);
                 } // end of if ( sb == null )
                 else {
-                    sb.append(" ").append(args[i]);
+                    sb.append(" ").append(arg);
                 } // end of if ( sb == null ) else
-
-            } // end of if ( args[i].equals("-h") ... ) else
-                
-        } // end of for (int i = 0; i < args.length; i++)
-
+                break;
+            }
+        }
+        
         if ( sb != null ) {
             nonOptions = sb.toString();
         } // end of if ()
@@ -166,6 +190,10 @@ public class ArgParser {
     public String getNonOptions() {
         return nonOptions;
     } // end of method "getNonOptions()"
+    
+    public String getInterestRate() {
+        return interestRate;
+    }
 
 
     public static final void main(final String[] args) {

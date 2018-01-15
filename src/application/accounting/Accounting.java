@@ -6,7 +6,7 @@ import java.text.*;
 // Klasse fuer die Buchhaltung
 public class Accounting {
 
-    public static String applicationVersion = "Id: Accounting.java, version 32e1c6b of 2017-12-11 16:02:51 +0100 by JThoennissen"
+    public static String applicationVersion = "Id: Accounting.java, version 32e1c6b of 2017-12-11 16:02:51 +0100 by JThoennissen";
 
 	// Liste der Sparer
 	private static ArrayList<Depositor> mitglieder;	
@@ -27,7 +27,7 @@ public class Accounting {
         if(args.length != 0) {
             ArgParser parser = new ArgParser(args);
             datei = parser.getInputFilename();
-            zinssatz = Double.parseDouble(parser.getNonOptions().replace(",","."));
+            zinssatz = Double.parseDouble(parser.getInterestRate().replace(",","."));
         } else {
             Scanner sc = new Scanner(System.in);
             datei = sc.nextLine();
